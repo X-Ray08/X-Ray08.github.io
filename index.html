@@ -57,75 +57,46 @@
   nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
   .logo { font-weight: 700; font-size: 1.05rem; }
   .logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 28px; align-items: center; }
-  .nav-links a { color: var(--muted); font-size: .92rem; font-weight: 500; transition: color .2s; }
-  .nav-links a:hover { color: var(--text); }
   .theme-btn {
     background: none; border: 1px solid var(--border); color: var(--text);
-    width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 1rem;
-    display: grid; place-items: center; transition: border-color .2s;
+    padding: 6px 12px; border-radius: 8px; cursor: pointer; font: inherit; font-size: .82rem;
+    transition: border-color .2s;
   }
   .theme-btn:hover { border-color: var(--accent); }
 
   /* Hero */
-  .hero { padding: 120px 0 100px; }
+  .hero { padding: 96px 0 40px; }
   .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.08; font-weight: 800; letter-spacing: -.03em; }
-  .hero h1 .grad {
-    background: linear-gradient(90deg, var(--accent), #06b6d4);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .typed { color: var(--muted); font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin: 22px 0 36px; min-height: 2em; }
+  .hero h1 .sub { color: var(--muted); }
+  .typed { color: var(--muted); font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin: 22px 0 0; min-height: 2em; }
   .typed .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); margin-left: 2px; vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
-  .btns { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn {
-    padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: .95rem;
-    border: 1px solid var(--border); transition: transform .15s, box-shadow .2s, background .2s;
-    display: inline-flex; align-items: center; gap: 8px;
+  /* Contact form */
+  .contact { max-width: 520px; margin-top: 56px; }
+  .contact h2 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+  .contact > p { color: var(--muted); font-size: .9rem; margin-bottom: 16px; }
+  .contact .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .contact input, .contact textarea {
+    width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text); font: inherit; font-size: .9rem;
   }
-  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .contact textarea { min-height: 96px; resize: vertical; display: block; }
+  .contact input:focus, .contact textarea:focus { outline: none; border-color: var(--accent); }
+  .contact .actions { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
+  .contact button {
+    padding: 9px 18px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent);
+    color: #fff; font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer;
+  }
+  .contact button:disabled { opacity: .6; cursor: default; }
+  .contact .status { font-size: .85rem; color: var(--muted); }
+  .hp { display: none; }
 
   /* Sections */
-  section { padding: 90px 0; }
-  .section-label { font-size: .8rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 10px; }
-  h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 18px; }
-  .lead { color: var(--muted); max-width: 640px; font-size: 1.05rem; }
-
-  /* About */
-  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; margin-top: 36px; }
-  .about-grid p { color: var(--muted); margin-bottom: 16px; }
-  .facts { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
-  .fact { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: .93rem; }
-  .fact:last-child { border-bottom: none; }
-  .fact span:first-child { color: var(--muted); }
-  .fact span:last-child { font-weight: 600; text-align: right; }
-
-  /* Skills */
-  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 36px; }
-  .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
-  .skill-card h3 { font-size: 1rem; margin-bottom: 12px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag { font-size: .8rem; padding: 4px 10px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
-
-  /* Projects */
-  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 36px; }
-  .project {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 26px;
-    display: flex; flex-direction: column; transition: transform .2s, border-color .2s, box-shadow .2s;
-  }
-  .project:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
-  .project .icon { font-size: 1.6rem; margin-bottom: 14px; }
-  .project h3 { font-size: 1.15rem; margin-bottom: 8px; }
-  .project p { color: var(--muted); font-size: .93rem; flex: 1; margin-bottom: 18px; }
-  .project .meta { display: flex; justify-content: space-between; align-items: center; }
-  .project .link { color: var(--accent); font-weight: 600; font-size: .9rem; }
-  .lang { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; color: var(--muted); }
-  .lang i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  section { padding: 0 0 80px; }
 
   /* Terminal */
   .terminal {
-    margin-top: 36px; background: var(--term-bg); border-radius: 16px; overflow: hidden;
+    background: var(--term-bg); border-radius: 12px; overflow: hidden;
     box-shadow: 0 20px 50px rgba(0,0,0,.25); border: 1px solid #1f2230;
   }
   .term-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #161922; border-bottom: 1px solid #1f2230; }
@@ -141,15 +112,6 @@
   .term-hint { margin-top: 14px; color: var(--muted); font-size: .88rem; }
   .term-hint code { background: var(--accent-soft); color: var(--accent); padding: 2px 7px; border-radius: 6px; font-size: .82rem; }
 
-  /* Contact */
-  .contact-box {
-    margin-top: 36px; padding: 48px; border-radius: 22px; text-align: center;
-    background: linear-gradient(135deg, var(--accent-soft), var(--surface));
-    border: 1px solid var(--border);
-  }
-  .contact-box p { color: var(--muted); margin: 0 auto 28px; max-width: 520px; }
-  .contact-box .btns { justify-content: center; }
-
   footer { padding: 40px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; text-align: center; }
 
   /* Reveal animation */
@@ -157,11 +119,7 @@
   .reveal.visible { opacity: 1; transform: none; }
 
   @media (max-width: 760px) {
-    .nav-links a { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .hero { padding: 80px 0 60px; }
-    section { padding: 64px 0; }
-    .contact-box { padding: 32px 22px; }
+    .hero { padding: 64px 0 32px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
@@ -174,117 +132,19 @@
 <nav>
   <div class="container">
     <a href="#" class="logo mono">&gt;_ X-Ray<span>08</span></a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#terminal">Terminal</a>
-      <a href="#contact">Contact</a>
-      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">🌙</button>
-    </div>
+    <button class="theme-btn mono" id="themeBtn" aria-label="Toggle dark mode">dark</button>
   </div>
 </nav>
 
 <header class="hero">
   <div class="container">
-    <h1 class="reveal">Hi, I'm Rayan.<br><span class="grad">I build software.</span></h1>
+    <h1 class="reveal">Hi, I'm Rayan.<br><span class="sub">I build software.</span></h1>
     <p class="typed mono reveal"><span id="typed"></span><span class="cursor"></span></p>
-    <div class="btns reveal">
-      <a href="#projects" class="btn primary">View my projects →</a>
-      <a href="#terminal" class="btn mono">&gt;_ Open terminal</a>
-      <a href="https://github.com/X-Ray08" target="_blank" rel="noopener" class="btn">GitHub</a>
-    </div>
   </div>
 </header>
 
-<section id="about">
-  <div class="container">
-    <div class="section-label reveal">About</div>
-    <h2 class="reveal">A bit about me</h2>
-    <div class="about-grid">
-      <div class="reveal">
-        <p>I'm a Master's student in Computer Science (M.Sc. Informatik) at Hochschule Bochum, Germany. I like building software, automating workflows and solving problems that actually matter to people.</p>
-        <p>One of my favourite projects is the first OCR system for Kurdish (Badini &amp; Sorani). It started because existing tools simply didn't support my language. I also enjoy writing clean backend code in Go and Python.</p>
-        <p>When I'm not coding, I'm probably learning something new or breaking (and fixing) my own setup.</p>
-      </div>
-      <div class="facts reveal">
-        <div class="fact"><span>📍 Location</span><span>Bochum, Germany</span></div>
-        <div class="fact"><span>🎓 Studying</span><span>M.Sc. Informatik</span></div>
-        <div class="fact"><span>🏫 University</span><span>Hochschule Bochum</span></div>
-        <div class="fact"><span>💬 Languages</span><span>Kurdish · English · German</span></div>
-        <div class="fact"><span>⚡ Currently</span><span>Building cool stuff</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="container">
-    <div class="section-label reveal">Skills</div>
-    <h2 class="reveal">What I work with</h2>
-    <div class="skills">
-      <div class="skill-card reveal">
-        <h3>💻 Languages</h3>
-        <div class="tags"><span class="tag">Python</span><span class="tag">Go</span><span class="tag">JavaScript</span><span class="tag">SQL</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>🧠 Computer Vision</h3>
-        <div class="tags"><span class="tag">OpenCV</span><span class="tag">Tesseract OCR</span><span class="tag">NumPy</span><span class="tag">Image processing</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>🌐 Web &amp; Backend</h3>
-        <div class="tags"><span class="tag">REST APIs</span><span class="tag">HTML/CSS</span><span class="tag">Go web servers</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3>🛠 Tools</h3>
-        <div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Linux</span><span class="tag">Automation</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="container">
-    <div class="section-label reveal">Projects</div>
-    <h2 class="reveal">Things I've built</h2>
-    <p class="lead reveal">A selection of my work. More is on <a href="https://github.com/X-Ray08" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">GitHub</a>.</p>
-    <div class="projects">
-      <article class="project reveal">
-        <div class="icon">🔤</div>
-        <h3>Kurdish-OCR</h3>
-        <p>The first OCR system for Kurdish text (Badini &amp; Sorani). It detects and deskews documents with a four-point perspective transform, preprocesses them with OpenCV and recognises text with Tesseract.</p>
-        <div class="meta">
-          <span class="lang"><i style="background:#3572A5"></i>Python · OpenCV · Tesseract</span>
-          <a class="link" href="https://github.com/X-Ray08/Kurdish-OCR" target="_blank" rel="noopener">Code →</a>
-        </div>
-      </article>
-      <article class="project reveal">
-        <div class="icon">🛒</div>
-        <h3>Go-GroceryList</h3>
-        <p>A grocery list web app written in Go, with a clean project layout (cmd / internal / web) that separates the entry point, business logic and frontend.</p>
-        <div class="meta">
-          <span class="lang"><i style="background:#00ADD8"></i>Go</span>
-          <a class="link" href="https://github.com/X-Ray08/Go-GroceryList" target="_blank" rel="noopener">Code →</a>
-        </div>
-      </article>
-      <article class="project reveal">
-        <div class="icon">&gt;_</div>
-        <h3>This website</h3>
-        <p>A hand-written portfolio with no frameworks and no build step, just HTML, CSS and vanilla JS. It includes a working terminal emulator and dark mode, and it's hosted for free on GitHub Pages.</p>
-        <div class="meta">
-          <span class="lang"><i style="background:#f1e05a"></i>HTML · CSS · JS</span>
-          <a class="link" href="https://github.com/X-Ray08/X-Ray08.github.io" target="_blank" rel="noopener">Code →</a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
 <section id="terminal">
   <div class="container">
-    <div class="section-label reveal">Playground</div>
-    <h2 class="reveal">Try my terminal</h2>
-    <p class="lead reveal">Prefer the command line? Explore this site the hacker way.</p>
     <div class="terminal reveal">
       <div class="term-bar">
         <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
@@ -298,27 +158,26 @@
         </div>
       </div>
     </div>
-    <p class="term-hint reveal">Try <code>help</code>, <code>whoami</code>, <code>projects</code> or <code>neofetch</code>. Use ↑/↓ for history and Tab to autocomplete.</p>
-  </div>
-</section>
 
-<section id="contact">
-  <div class="container">
-    <div class="contact-box reveal">
-      <div class="section-label">Contact</div>
-      <h2>Let's build something together</h2>
-      <p>Have a question, an idea or just want to say hi? Feel free to reach out.</p>
-      <div class="btns">
-        <a href="mailto:ray.pybot@gmail.com" class="btn primary">✉️ Email me</a>
-        <a href="https://github.com/X-Ray08" target="_blank" rel="noopener" class="btn">GitHub</a>
-        <a href="https://www.linkedin.com/in/rayanchicho" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+    <form class="contact reveal" id="contactForm">
+      <h2>Contact</h2>
+      <p>Send me a message and I'll get back to you.</p>
+      <div class="row">
+        <input name="name" placeholder="Name" required aria-label="Name">
+        <input name="email" type="email" placeholder="Email" required aria-label="Email">
       </div>
-    </div>
+      <textarea name="message" placeholder="Message" required aria-label="Message"></textarea>
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+      <div class="actions">
+        <button type="submit">Send</button>
+        <span class="status" id="formStatus" role="status"></span>
+      </div>
+    </form>
   </div>
 </section>
 
 <footer>
-  <div class="container">© <span id="year"></span> Rayan · Built from scratch &amp; hosted on GitHub Pages</div>
+  <div class="container">&copy; <span id="year"></span> Rayan</div>
 </footer>
 
 <script>
@@ -333,14 +192,14 @@ const ME = {
 /* Theme toggle (follows system preference on first load) */
 const root = document.documentElement;
 const themeBtn = document.getElementById("themeBtn");
-function setTheme(t) { root.setAttribute("data-theme", t); themeBtn.textContent = t === "dark" ? "☀️" : "🌙"; }
+function setTheme(t) { root.setAttribute("data-theme", t); themeBtn.textContent = t === "dark" ? "light" : "dark"; }
 setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 themeBtn.onclick = () => setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
 /* Typing effect */
-const phrases = ["M.Sc. Computer Science @ Hochschule Bochum", "Python · Go · Computer Vision", "Built the first Kurdish OCR", "Automating all the things"];
+const phrases = ["M.Sc. Computer Science @ Hochschule Bochum", "Computer vision and OCR", "Built the first Kurdish OCR", "Go · Python · Linux"];
 const typedEl = document.getElementById("typed");
 let pi = 0, ci = 0, deleting = false;
 (function type() {
@@ -366,9 +225,9 @@ const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&g
 function print(html = "") { const d = document.createElement("div"); d.className = "line"; d.innerHTML = html; out.appendChild(d); body.scrollTop = body.scrollHeight; }
 
 const files = {
-  "about.txt": "M.Sc. Informatik student at Hochschule Bochum.\nI build software, automate workflows and solve problems.",
+  "about.txt": "M.Sc. Informatik student at Hochschule Bochum, Germany.\nI like building software, automating workflows and solving problems\nthat matter to people. I built the first OCR system for Kurdish\n(Badini and Sorani) because existing tools didn't support my language.\nMostly writing Go and Python these days.\n\nLocation   Bochum, Germany\nLanguages  Kurdish, English, German",
   "skills.txt": "Python, Go, JavaScript, SQL, OpenCV, Tesseract, Git, Linux",
-  "secret.txt": "<span class='c-yellow'>🥚 You found it! Try typing: matrix</span>",
+  "secret.txt": "<span class='c-yellow'>You found it. Try typing: matrix</span>",
 };
 
 const commands = {
@@ -381,7 +240,7 @@ const commands = {
   <span class="c-green">contact</span>     how to reach me
   <span class="c-green">neofetch</span>    system info, but about me
   <span class="c-green">ls</span> / <span class="c-green">cat</span>    browse files
-  <span class="c-green">open</span> &lt;x&gt;    open github | projects | contact
+  <span class="c-green">open</span> &lt;x&gt;    open github | linkedin | email
   <span class="c-green">theme</span>       toggle light/dark
   <span class="c-green">date</span>, <span class="c-green">echo</span>, <span class="c-green">history</span>, <span class="c-green">clear</span>`),
   whoami: () => print(`${ME.name}: CS Master's student, builder, problem solver.`),
@@ -389,11 +248,21 @@ const commands = {
   skills: () => print(
 `<span class="c-cyan">Languages</span>   Python ██████████  Go ████████░░  JS ██████░░░░
 <span class="c-cyan">CV / ML</span>     OpenCV · Tesseract · NumPy
+<span class="c-cyan">Web</span>         REST APIs · HTML/CSS · Go web servers
 <span class="c-cyan">Tools</span>       Git · Linux · Automation`),
   projects: () => print(
-`<span class="c-yellow">1.</span> <a class="c-accent" href="https://github.com/X-Ray08/Kurdish-OCR" target="_blank">Kurdish-OCR</a>     first OCR for Kurdish (Python, OpenCV)
-<span class="c-yellow">2.</span> <a class="c-accent" href="https://github.com/X-Ray08/Go-GroceryList" target="_blank">Go-GroceryList</a>  grocery list web app (Go)
-<span class="c-yellow">3.</span> this website    you're using it right now :)`),
+`<span class="c-yellow">1.</span> <a class="c-accent" href="https://github.com/X-Ray08/Kurdish-OCR" target="_blank">Kurdish-OCR</a>
+   First OCR for Kurdish (Badini and Sorani). Deskews documents with a
+   four-point transform, preprocesses with OpenCV, reads text with Tesseract.
+   <span class="c-muted">Python · OpenCV · Tesseract</span>
+
+<span class="c-yellow">2.</span> <a class="c-accent" href="https://github.com/X-Ray08/Go-GroceryList" target="_blank">Go-GroceryList</a>
+   Grocery list web app with a cmd / internal / web project layout.
+   <span class="c-muted">Go</span>
+
+<span class="c-yellow">3.</span> <a class="c-accent" href="https://github.com/X-Ray08/X-Ray08.github.io" target="_blank">X-Ray08.github.io</a>
+   This site. Plain HTML, CSS and JS, no build step.
+   <span class="c-muted">HTML · CSS · JS</span>`),
   contact: () => print(
 `email     <a class="c-accent" href="mailto:${ME.email}">${ME.email}</a>
 github    <a class="c-accent" href="${ME.github}" target="_blank">${ME.github}</a>
@@ -413,8 +282,9 @@ linkedin  <a class="c-accent" href="${ME.linkedin}" target="_blank">${ME.linkedi
   open: a => {
     const t = (a[0] || "").toLowerCase();
     if (t === "github") { window.open(ME.github, "_blank"); print("Opening GitHub..."); }
-    else if (["projects", "contact", "about", "skills"].includes(t)) { document.getElementById(t).scrollIntoView(); print(`Scrolling to ${t}...`); }
-    else print("usage: open github | projects | contact | about | skills");
+    else if (t === "linkedin") { window.open(ME.linkedin, "_blank"); print("Opening LinkedIn..."); }
+    else if (t === "email") { location.href = "mailto:" + ME.email; print("Opening mail client..."); }
+    else print("usage: open github | linkedin | email");
   },
   theme: () => { themeBtn.click(); print(`Theme switched to ${root.getAttribute("data-theme")}.`); },
   date: () => print(new Date().toString()),
@@ -422,8 +292,8 @@ linkedin  <a class="c-accent" href="${ME.linkedin}" target="_blank">${ME.linkedi
   history: () => print(history.map((h, i) => `  ${i + 1}  ${esc(h)}`).join("\n")),
   clear: () => { out.innerHTML = ""; },
   sudo: () => print(`<span class="c-red">guest is not in the sudoers file. This incident will be reported.</span>`),
-  "rm": a => a.join(" ").includes("-rf") ? print(`<span class="c-red">Nice try. 😏</span>`) : print("rm: permission denied"),
-  exit: () => print("There is no escape. Try <span class='c-green'>clear</span> instead 😄"),
+  "rm": a => a.join(" ").includes("-rf") ? print(`<span class="c-red">Nice try.</span>`) : print("rm: permission denied"),
+  exit: () => print("There is no escape. Try <span class='c-green'>clear</span> instead."),
   matrix: () => matrix(),
 };
 
@@ -449,6 +319,29 @@ input.addEventListener("keydown", e => {
 });
 body.addEventListener("click", () => { if (!window.getSelection().toString()) input.focus({ preventScroll: true }); });
 
+/* Contact form (sent via formsubmit.co, falls back to the mail app) */
+const form = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form));
+  if (data._honey) return;
+  const btn = form.querySelector("button");
+  btn.disabled = true; formStatus.textContent = "Sending...";
+  try {
+    const r = await fetch(`https://formsubmit.co/ajax/${ME.email}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ name: data.name, email: data.email, message: data.message, _subject: "New message from X-Ray08.github.io", _template: "table" }),
+    });
+    if (!r.ok) throw new Error();
+    form.reset(); formStatus.textContent = "Thanks, your message was sent.";
+  } catch {
+    formStatus.textContent = "Couldn't send. Opening your mail app instead.";
+    location.href = `mailto:${ME.email}?subject=${encodeURIComponent("Message from " + data.name)}&body=${encodeURIComponent(data.message + "\n\n" + data.name + " <" + data.email + ">")}`;
+  } finally { btn.disabled = false; }
+});
+
 /* Matrix easter egg */
 function matrix() {
   const c = document.createElement("canvas");
@@ -473,7 +366,7 @@ function matrix() {
 
 /* Welcome message */
 print(`<span class="c-accent">Welcome to X-Ray08's terminal</span> <span class="c-muted">v1.0</span>`);
-print(`Type <span class="c-green">help</span> to see available commands.\n`);
+print(`Type <span class="c-green">help</span> to see available commands. Try <span class="c-green">about</span>, <span class="c-green">projects</span> or <span class="c-green">contact</span>.\n`);
 </script>
 </body>
 </html>
