@@ -51,15 +51,42 @@
     background: color-mix(in srgb, var(--bg) 80%, transparent);
     border-bottom: 1px solid var(--border);
   }
-  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { font-weight: 700; font-size: 1.05rem; }
-  .logo span { color: var(--accent); }
-  .theme-btn {
-    background: none; border: 1px solid var(--border); color: var(--text);
-    padding: 6px 12px; border-radius: 8px; cursor: pointer; font: inherit; font-size: .82rem;
-    transition: border-color .2s;
+  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; position: relative; }
+
+  /* Light pull cord */
+  .cord {
+    position: absolute; top: 100%; right: 40px; margin-top: 1px;
+    width: 28px; padding: 0; border: none; background: none;
+    display: flex; flex-direction: column; align-items: center;
+    cursor: grab; touch-action: none; transform-origin: top center;
+    -webkit-tap-highlight-color: transparent;
   }
-  .theme-btn:hover { border-color: var(--accent); }
+  .cord:active { cursor: grabbing; }
+  .cord:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+  .cord-line { width: 1.5px; height: calc(48px + var(--pull, 0px)); background: var(--muted); opacity: .7; }
+  .cord-knob {
+    width: 10px; height: 16px; border-radius: 5px; margin-top: -1px;
+    background: var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    transition: transform .2s;
+  }
+  .cord:hover .cord-knob { transform: scale(1.12); }
+  .cord.release .cord-line { transition: height .55s cubic-bezier(.3, 1.8, .5, 1); }
+  .cord.swing { animation: swing 1.6s ease-out; }
+  @keyframes swing { 0% { transform: rotate(0); } 15% { transform: rotate(9deg); } 35% { transform: rotate(-6deg); } 55% { transform: rotate(3deg); } 75% { transform: rotate(-1.5deg); } 100% { transform: rotate(0); } }
+  .flicker { animation: flicker .45s steps(1); }
+  @keyframes flicker { 0% { opacity: 1; } 20% { opacity: .35; } 35% { opacity: 1; } 50% { opacity: .55; } 65%, 100% { opacity: 1; } }
+  .logo { font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
+  .logo span { color: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: none; border: 1px solid var(--border); color: var(--text);
+    padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: .82rem; line-height: 1.4;
+    transition: border-color .2s, color .2s;
+  }
+  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-btn svg { width: 12px; height: 12px; opacity: .6; transition: transform .2s, opacity .2s; }
+  .nav-btn:hover svg { opacity: 1; transform: translate(1px, -1px); }
 
   /* Hero */
   .hero { padding: 96px 0 40px; }
@@ -106,6 +133,9 @@
   .term-input-row { display: flex; gap: 8px; }
   .term-input { flex: 1; background: none; border: none; outline: none; color: var(--term-text); font: inherit; caret-color: #22c55e; }
   .c-accent { color: #818cf8; } .c-green { color: #22c55e; } .c-yellow { color: #facc15; } .c-muted { color: #6b7280; } .c-cyan { color: #22d3ee; } .c-red { color: #f87171; }
+  .tile { display: inline-block; width: 1.9em; text-align: center; margin-right: 4px; border-radius: 4px; font-weight: 600; color: #fff; }
+  .tile.g { background: #16a34a; } .tile.y { background: #ca8a04; } .tile.x { background: #3f3f46; }
+  .key { color: #9ca3af; } .key.g { color: #22c55e; font-weight: 600; } .key.y { color: #facc15; font-weight: 600; } .key.x { color: #3f3f46; }
   .term-hint { margin-top: 14px; color: var(--muted); font-size: .88rem; }
   .term-hint code { background: var(--accent-soft); color: var(--accent); padding: 2px 7px; border-radius: 6px; font-size: .82rem; }
 
@@ -118,8 +148,14 @@
 
   @media (max-width: 760px) {
     .hero { padding: 64px 0 32px; }
+    .nav-right { gap: 6px; }
+    .nav-btn { padding: 5px 8px; font-size: .78rem; }
+    .nav-btn svg { display: none; }
+    .cord { right: 28px; }
+    .logo { font-size: .95rem; }
   }
   @media (prefers-reduced-motion: reduce) {
+    .cord.swing, .flicker { animation: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
     html { scroll-behavior: auto; }
   }
@@ -130,7 +166,11 @@
 <nav>
   <div class="container">
     <a href="#" class="logo mono">&gt;_ X-Ray<span>08</span></a>
-    <button class="theme-btn mono" id="themeBtn" aria-label="Toggle dark mode">dark</button>
+    <div class="nav-right">
+      <a class="nav-btn mono" href="https://github.com/X-Ray08" target="_blank" rel="noopener">github <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a>
+      <a class="nav-btn mono" href="https://www.linkedin.com/in/rayanchicho" target="_blank" rel="noopener">linkedin <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a>
+    </div>
+    <button class="cord" id="cord" aria-label="Pull to switch the lights" title="pull me"><span class="cord-line"></span><span class="cord-knob"></span></button>
   </div>
 </nav>
 
@@ -151,7 +191,7 @@
       <div class="term-body mono" id="termBody">
         <div id="termOut"></div>
         <div class="term-input-row">
-          <span class="prompt"><b>guest@x-ray08</b>:~$</span>
+          <span class="prompt" id="termPrompt"><b>guest@x-ray08</b>:~$</span>
           <input class="term-input" id="termInput" autocomplete="off" spellcheck="false" aria-label="Terminal input">
         </div>
       </div>
@@ -192,10 +232,48 @@ const LOG_URL = "https://script.google.com/macros/s/AKfycbyNS4iqjZ1Gk74YjFdgI_6S
 
 /* Theme toggle (follows system preference on first load) */
 const root = document.documentElement;
-const themeBtn = document.getElementById("themeBtn");
-function setTheme(t) { root.setAttribute("data-theme", t); themeBtn.textContent = t === "dark" ? "light" : "dark"; }
-setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-themeBtn.onclick = () => setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+/* Theme: follows the visitor's system setting; change it from the terminal ("lights off", "theme light") */
+const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+let themeMode = "auto";
+function setTheme(t) { root.setAttribute("data-theme", t); }
+function applyTheme(mode) {
+  themeMode = mode;
+  setTheme(mode === "auto" ? (systemDark.matches ? "dark" : "light") : mode);
+}
+applyTheme("auto");
+systemDark.addEventListener("change", () => { if (themeMode === "auto") applyTheme("auto"); });
+
+/* Pull cord: drag it down (or click / press Enter) to switch the lights */
+const cord = document.getElementById("cord");
+function flicker() { document.body.classList.remove("flicker"); void document.body.offsetWidth; document.body.classList.add("flicker"); }
+function toggleLights() {
+  const goingLight = root.getAttribute("data-theme") === "dark";
+  applyTheme(goingLight ? "light" : "dark");
+  if (goingLight) flicker();
+}
+function swingCord() { cord.classList.remove("swing"); void cord.offsetWidth; cord.classList.add("swing"); }
+let pullStart = null, pulled = 0, fromPointer = false;
+cord.addEventListener("pointerdown", e => {
+  pullStart = e.clientY; pulled = 0; fromPointer = true;
+  cord.classList.remove("release", "swing"); cord.setPointerCapture(e.pointerId);
+});
+cord.addEventListener("pointermove", e => {
+  if (pullStart === null) return;
+  pulled = Math.max(0, Math.min(44, e.clientY - pullStart));
+  cord.style.setProperty("--pull", pulled + "px");
+});
+function releaseCord(cancelled) {
+  if (pullStart === null) return;
+  if (!cancelled && (pulled > 18 || pulled < 4)) toggleLights(); // a real pull, or a simple tap/click
+  pullStart = null;
+  cord.classList.add("release"); cord.style.setProperty("--pull", "0px");
+  setTimeout(swingCord, 120);
+}
+cord.addEventListener("pointerup", () => releaseCord(false));
+cord.addEventListener("pointercancel", () => releaseCord(true));
+cord.addEventListener("click", () => { if (fromPointer) { fromPointer = false; return; } toggleLights(); swingCord(); }); // keyboard
+document.body.addEventListener("animationend", e => { if (e.target === document.body) document.body.classList.remove("flicker"); });
+setTimeout(swingCord, 1500); // a little swing on load, so people notice it
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -258,7 +336,8 @@ const commands = {
   <span class="c-green">neofetch</span>    system info, but about me
   <span class="c-green">ls</span> / <span class="c-green">cat</span>    browse files
   <span class="c-green">open</span> &lt;x&gt;    open github | linkedin | email
-  <span class="c-green">theme</span>       toggle light/dark
+  <span class="c-green">lights</span>      on / off  (light or dark mode)
+  <span class="c-green">play</span>        guess the word in 6 tries
   <span class="c-green">privacy</span>     what this site collects
   <span class="c-green">date</span>, <span class="c-green">echo</span>, <span class="c-green">history</span>, <span class="c-green">clear</span>`),
   whoami: () => print(`${ME.name}: CS Master's student, builder, problem solver.`),
@@ -300,7 +379,18 @@ linkedin  <a class="c-accent" href="${ME.linkedin}" target="_blank">${ME.linkedi
     else if (t === "email") { location.href = "mailto:" + ME.email; print("Opening mail client..."); }
     else print("usage: open github | linkedin | email");
   },
-  theme: () => { themeBtn.click(); print(`Theme switched to ${root.getAttribute("data-theme")}.`); },
+  lights: a => {
+    const w = (a[0] || "").toLowerCase();
+    if (w === "off") { applyTheme("dark"); print("*click* Lights off."); }
+    else if (w === "on") { applyTheme("light"); flicker(); print("*click* Lights on."); }
+    else print(`The lights are ${root.getAttribute("data-theme") === "dark" ? "off" : "on"}. Try <span class="c-green">lights on</span> or <span class="c-green">lights off</span>.`);
+  },
+  theme: a => {
+    const w = (a[0] || "").toLowerCase();
+    if (["dark", "light", "auto"].includes(w)) { applyTheme(w); print(`Theme set to ${w}.`); }
+    else if (!w) { applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); print(`Theme switched to ${themeMode}.`); }
+    else print("usage: theme [dark | light | auto]");
+  },
   privacy: () => print(`Commands you type here and their output are logged anonymously (no IP address).\nFull details: <a class="c-accent" href="privacy.html">privacy.html</a>`),
   date: () => print(new Date().toString()),
   echo: a => print(esc(a.join(" "))),
@@ -310,10 +400,329 @@ linkedin  <a class="c-accent" href="${ME.linkedin}" target="_blank">${ME.linkedi
   "rm": a => a.join(" ").includes("-rf") ? print(`<span class="c-red">Nice try.</span>`) : print("rm: permission denied"),
   exit: () => print("There is no escape. Try <span class='c-green'>clear</span> instead."),
   matrix: () => matrix(),
+  play: () => wordGame.start(),
+  adventure: () => adv.start(),
+};
+
+const SHELL_PROMPT = `<b>guest@x-ray08</b>:~$`;
+let activeGame = null;
+function setPrompt(html) { document.getElementById("termPrompt").innerHTML = html; }
+
+/* ===== Word game: guess the tech word in 6 tries (type `play`) ===== */
+const WORDS = ["linux", "array", "stack", "queue", "debug", "pixel", "cache", "proxy", "shell", "regex",
+  "token", "class", "build", "merge", "fetch", "async", "patch", "logic", "input", "float",
+  "while", "break", "yield", "scope", "query", "index", "model", "layer", "mouse", "bytes",
+  "admin", "alias", "cloud", "crash", "cyber", "frame", "graph", "laser", "macro", "modem",
+  "nodes", "parse", "print", "react", "route", "serve", "swift", "table", "tuple", "virus",
+  "write", "error", "event", "login", "email", "robot", "chips", "click", "mutex", "local",
+  "agent", "stdin", "union", "value", "vault", "watch"];
+const WORD_PROMPT_HTML = n => `<span class="c-yellow">guess ${n}/6 &gt;</span>`;
+const wordGame = {
+  start() {
+    activeGame = this;
+    this.word = WORDS[Math.floor(Math.random() * WORDS.length)];
+    this.guesses = []; this.letters = {};
+    this.prompt = WORD_PROMPT_HTML(1); setPrompt(this.prompt);
+    print(`<span class="c-accent">GUESS THE WORD</span> <span class="c-muted">tech edition</span>
+
+I'm thinking of a 5-letter word from the world of computers.
+You have 6 tries. After each guess:
+  ${this.tile("a", "g")} right letter, right spot
+  ${this.tile("b", "y")} right letter, wrong spot
+  ${this.tile("c", "x")} not in the word
+
+<span class="c-muted">Type a word and press Enter. Type</span> <span class="c-green">quit</span> <span class="c-muted">to stop.</span>
+`);
+  },
+  stop(msg) { activeGame = null; setPrompt(SHELL_PROMPT); print(msg); },
+  tile(ch, s) { return `<span class="tile ${s}">${ch.toUpperCase()}</span>`; },
+  score(guess) {
+    const res = Array(5).fill("x"), left = {};
+    for (let i = 0; i < 5; i++) {
+      if (guess[i] === this.word[i]) res[i] = "g";
+      else left[this.word[i]] = (left[this.word[i]] || 0) + 1;
+    }
+    for (let i = 0; i < 5; i++) {
+      if (res[i] !== "g" && left[guess[i]]) { res[i] = "y"; left[guess[i]]--; }
+    }
+    return res;
+  },
+  board() {
+    const rows = this.guesses.map(([g, r]) => [...g].map((c, i) => this.tile(c, r[i])).join(""));
+    const keys = ["qwertyuiop", "asdfghjkl", "zxcvbnm"].map((row, i) =>
+      " ".repeat(i) + [...row].map(c => {
+        const s = this.letters[c];
+        return s ? `<span class="key ${s}">${c}</span>` : `<span class="key">${c}</span>`;
+      }).join(" ")).join("\n");
+    print(rows.join("\n") + "\n\n" + keys);
+  },
+  input(raw) {
+    const g = raw.trim().toLowerCase();
+    if (["quit", "exit", "q"].includes(g)) return this.stop(`<span class="c-muted">The word was</span> <span class="c-yellow">${this.word.toUpperCase()}</span><span class="c-muted">. Type</span> <span class="c-green">play</span> <span class="c-muted">to try another one.</span>`);
+    if (g === "clear") { out.innerHTML = ""; return; }
+    if (g === "help") return print(`Type any 5-letter word. Green = right spot, yellow = wrong spot, gray = not in the word. <span class="c-green">quit</span> to stop.`);
+    if (!/^[a-z]{5}$/.test(g)) return print(`<span class="c-red">Please type a 5-letter word (letters only).</span>`);
+    if (this.guesses.some(([w]) => w === g)) return print(`<span class="c-muted">You already tried that one.</span>`);
+    const r = this.score(g);
+    this.guesses.push([g, r]);
+    const rank = { g: 3, y: 2, x: 1 };
+    [...g].forEach((c, i) => { if (!this.letters[c] || rank[r[i]] > rank[this.letters[c]]) this.letters[c] = r[i]; });
+    this.board();
+    const n = this.guesses.length;
+    if (g === this.word) {
+      const praise = ["Genius!", "Brilliant!", "Impressive!", "Nice!", "Good job!", "Phew, close one!"][n - 1];
+      return this.stop(`\n<span class="c-green">${praise} You got it in ${n}/6.</span> <span class="c-muted">Type</span> <span class="c-green">play</span> <span class="c-muted">for another word.</span>`);
+    }
+    if (n === 6) return this.stop(`\n<span class="c-red">Out of tries.</span> The word was <span class="c-yellow">${this.word.toUpperCase()}</span>. <span class="c-muted">Type</span> <span class="c-green">play</span> <span class="c-muted">to try again.</span>`);
+    this.prompt = WORD_PROMPT_HTML(n + 1); setPrompt(this.prompt);
+  },
+};
+
+/* ===== Text adventure: "Escape the Lab" (hidden extra: type `adventure`) ===== */
+const ADV_PROMPT = `<span class="c-yellow">&gt;</span>`;
+const adv = {
+  active: false,
+  start() {
+    activeGame = this; this.prompt = ADV_PROMPT;
+    this.room = "lab"; this.inv = new Set(); this.moves = 0;
+    this.f = { drawer: false, keycardDropped: false, labDoor: false, serverOpen: false, rebooted: false, coffee: false };
+    setPrompt(ADV_PROMPT);
+    print(`<span class="c-accent">ESCAPE THE LAB</span> <span class="c-muted">a tiny text adventure</span>
+
+It's 2:07 a.m. You wake up with your face on a keyboard in a computer lab
+at Hochschule Bochum. Everyone's gone and the lights are dimmed.
+You need to find a way out.
+
+<span class="c-muted">Type</span> <span class="c-green">look</span><span class="c-muted">,</span> <span class="c-green">help</span> <span class="c-muted">or</span> <span class="c-green">hint</span><span class="c-muted">. Type</span> <span class="c-green">quit</span> <span class="c-muted">to stop.</span>
+`);
+    this.look();
+  },
+  stop(msg) {
+    activeGame = null; setPrompt(SHELL_PROMPT);
+    print(msg || `<span class="c-muted">You gave up and went back to sleep on the keyboard. Type</span> <span class="c-green">adventure</span> <span class="c-muted">to try again.</span>`);
+  },
+  say(t) { print(t); },
+  obj(t) { return `<span class="c-cyan">${t}</span>`; },
+
+  look() {
+    const o = s => this.obj(s), f = this.f;
+    const rooms = {
+      lab: () => `<span class="c-yellow">Computer Lab</span>
+Rows of desks, most monitors asleep. One ${o("MONITOR")} is still on, running some
+kind of OCR program. Next to you is a ${o("DESK")} with a drawer${this.inv.has("gopher") ? "" : `,\nand a small Go ${o("GOPHER")} plush sits on it`}.
+The ${o("DOOR")} south leads to the corridor${f.labDoor ? " (open)" : ""}. A doorway north leads to a kitchenette.`,
+      kitchen: () => `<span class="c-yellow">Kitchenette</span>
+A tiny kitchen. An old ${o("COFFEE MACHINE")} hums in the corner. A ${o("WHITEBOARD")} hangs on the wall.${f.keycardDropped && !this.inv.has("keycard") ? `\nA ${o("KEYCARD")} lies on the floor.` : ""}
+Exit: south, back to the lab.`,
+      corridor: () => `<span class="c-yellow">Corridor</span>
+A long, dark corridor. Green emergency lights glow along the floor.
+West: the server room, with a ${o("KEYPAD")} on its door${f.serverOpen ? " (open)" : ""}. East: the ${o("EXIT")}.
+North: back to the lab. A ${o("POSTER")} hangs on the wall.`,
+      server: () => `<span class="c-yellow">Server Room</span>
+Loud and freezing. Rows of racks blink at you. One rack has a big red
+${o("BUTTON")} labelled REBOOT, with a ${o("STICKY NOTE")} on it.
+Exit: east, back to the corridor.`,
+    };
+    this.say(rooms[this.room]());
+  },
+
+  go(dir) {
+    const d = { n: "north", s: "south", e: "east", w: "west" }[dir] || dir;
+    const f = this.f;
+    const map = {
+      lab: { north: "kitchen", south: "corridor" },
+      kitchen: { south: "lab" },
+      corridor: { north: "lab", west: "server", east: "outside" },
+      server: { east: "corridor" },
+    };
+    const to = (map[this.room] || {})[d];
+    if (!d) return this.say("Go where? (north, south, east or west)");
+    if (!to) return this.say("You can't go that way.");
+    if (this.room === "lab" && to === "corridor" && !f.labDoor) {
+      if (!this.inv.has("keycard")) return this.say("The door is locked. A card reader next to it blinks red.");
+      f.labDoor = true; this.say("You tap the keycard on the reader. <span class='c-green'>Beep.</span> The door slides open.");
+    }
+    if (to === "server" && !f.serverOpen) return this.say(`The server room is locked. The keypad wants a 4-digit code.\n<span class="c-muted">(type</span> <span class="c-green">enter 1234</span><span class="c-muted">)</span>`);
+    if (to === "outside") {
+      if (!f.rebooted) return this.say("The exit door won't budge. A sign says:\n<span class='c-yellow'>\"Security system offline. Reboot the server to unlock the doors.\"</span>");
+      return this.win();
+    }
+    this.room = to; this.look();
+  },
+
+  examine(t) {
+    const r = this.room, f = this.f;
+    const here = {
+      lab: {
+        monitor: `A program called <span class="c-green">kurdish-ocr</span> is running. On screen: a scanned page
+in Sorani Kurdish. At the bottom, in big print: <span class="c-yellow"><bdo dir="ltr">٤٠٨٢</bdo></span>
+The OCR output below reads: <span class="c-yellow">4 0 8 ?</span>  <span class="c-muted">(confidence: low)</span>`,
+        desk: f.drawer ? "An ordinary desk. The drawer is open" + (this.inv.has("mug") ? " and empty." : ". There's a MUG inside.") : "An ordinary desk with a closed DRAWER.",
+        drawer: f.drawer ? (this.inv.has("mug") ? "Empty." : "There's a coffee MUG inside.") : "It's closed.",
+        gopher: "A blue Go gopher plush. Rayan's favourite debugging partner.",
+        door: f.labDoor ? "It's open." : "Locked. There's a card reader next to it.",
+      },
+      kitchen: {
+        machine: "An old coffee machine, taller than you'd expect. You can't see the top. It needs a mug.",
+        whiteboard: `Someone wrote: <span class="c-yellow">"Whoever keeps losing the keycard: it's ON TOP of the coffee
+machine. Again. That thing shakes like crazy when it brews."</span>`,
+        keycard: f.keycardDropped ? "A university keycard. It says ADMIN on it." : null,
+      },
+      corridor: {
+        poster: `A poster from the Kurdish student society:
+<span class="c-yellow">"Count in Kurdish!   <bdo dir="ltr">٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩</bdo>
+                     0 1 2 3 4 5 6 7 8 9"</span>`,
+        keypad: f.serverOpen ? "Green light. The door is open." : "A keypad with digits 0-9. It wants a 4-digit code.",
+        exit: f.rebooted ? "The exit sign glows. The door looks unlocked now." : "A heavy door. A sign says the security system is offline.",
+      },
+      server: {
+        button: "A big red button labelled REBOOT. Very tempting.",
+        note: `It says: <span class="c-yellow">"DO NOT PRESS. (unless you really have to)"</span>`,
+        rack: "Blinking lights. One label says x-ray08.github.io. Huh.",
+      },
+    };
+    const inv = {
+      mug: this.f.coffee ? "Your mug, full of hot coffee. It says \"it works on my machine\"." : "A coffee mug. It says \"it works on my machine\".",
+      gopher: here.lab.gopher,
+      keycard: "A university keycard. It says ADMIN on it.",
+    };
+    const text = (here[r] || {})[t] || (this.inv.has(t) ? inv[t] : null);
+    this.say(text || (t ? "You don't see that here." : "Look at what?"));
+  },
+
+  take(t) {
+    const f = this.f;
+    if (this.inv.has(t)) return this.say("You already have it.");
+    if (this.room === "lab" && t === "gopher") { this.inv.add("gopher"); return this.say("You take the gopher. It feels like good luck."); }
+    if (this.room === "lab" && t === "mug") {
+      if (!f.drawer) return this.say("You don't see that here.");
+      this.inv.add("mug"); return this.say("You take the mug.");
+    }
+    if (this.room === "kitchen" && t === "keycard" && f.keycardDropped) { this.inv.add("keycard"); return this.say("You take the keycard."); }
+    if (this.room === "kitchen" && t === "machine") return this.say("It's way too heavy. And people need their coffee.");
+    if (this.room === "server" && t === "note") return this.say("Better leave it there. It's doing important work.");
+    this.say(t ? "You can't take that." : "Take what?");
+  },
+
+  open(t) {
+    if (this.room === "lab" && (t === "drawer" || t === "desk")) {
+      if (this.f.drawer) return this.say("It's already open.");
+      this.f.drawer = true; return this.say("You open the drawer. Inside: a coffee MUG.");
+    }
+    if (t === "door") return this.room === "lab" ? this.go("south") : this.say("Which door? Try going a direction.");
+    this.say(t ? "You can't open that." : "Open what?");
+  },
+
+  use(t) {
+    const f = this.f;
+    if (t === "machine" || t === "coffee") {
+      if (this.room !== "kitchen") return t === "coffee" ? this.drink() : this.say("You don't see that here.");
+      if (!this.inv.has("mug")) return this.say("You press the button. Hot coffee splashes everywhere. You need a mug.");
+      if (f.coffee) return this.say("Your mug is already full.");
+      f.coffee = true;
+      if (!f.keycardDropped) { f.keycardDropped = true; return this.say("The machine rattles and shakes so hard that something slides off the top\nand lands at your feet: a <span class='c-cyan'>KEYCARD</span>. Your mug is now full of coffee."); }
+      return this.say("Your mug is now full of coffee.");
+    }
+    if (t === "mug") return this.room === "kitchen" ? this.use("machine") : this.say(f.coffee ? "Maybe drink it?" : "It's empty.");
+    if (t === "keycard") return this.room === "lab" ? this.go("south") : this.say("There's no card reader here.");
+    if (t === "button") return this.push("button");
+    if (t === "keypad") return this.say("Type the code like this: <span class='c-green'>enter 1234</span>");
+    this.say(t ? "Nothing happens." : "Use what?");
+  },
+
+  enter(code) {
+    if (this.room !== "corridor") return this.say("There's no keypad here.");
+    if (this.f.serverOpen) return this.say("It's already open.");
+    if (!/^\d{4}$/.test(code || "")) return this.say("The keypad wants 4 digits, like: <span class='c-green'>enter 1234</span>");
+    if (code === "4082") { this.f.serverOpen = true; return this.say("<span class='c-green'>Click.</span> The light turns green and the server room door swings open."); }
+    this.say("<span class='c-red'>BZZT.</span> Wrong code.");
+  },
+
+  push(t) {
+    if (this.room !== "server" || t !== "button") return this.say(t ? "Nothing happens." : "Push what?");
+    if (this.f.rebooted) return this.say("You already rebooted it. Once is enough.");
+    this.f.rebooted = true;
+    this.say("You press it. The fans scream, every light dies... then, one by one,\neverything comes back on. Somewhere down the hall, a lock <span class='c-green'>clicks</span>.");
+  },
+
+  drink() {
+    if (!this.inv.has("mug")) return this.say("You don't have anything to drink.");
+    if (!this.f.coffee) return this.say("Your mug is empty.");
+    this.f.coffee = false; this.say("Hot, bitter, perfect. You feel ready to debug anything.");
+  },
+
+  hint() {
+    const f = this.f, i = this.inv;
+    const h = !f.drawer ? "That desk next to you has a drawer..."
+      : !i.has("mug") ? "Take the mug. Coffee solves most problems."
+      : !f.keycardDropped ? "Read the whiteboard in the kitchenette, then make some coffee."
+      : !i.has("keycard") ? "Something fell on the kitchen floor. Take it."
+      : !f.labDoor ? "The lab door south has a card reader."
+      : !f.serverOpen ? "The code is on the lab MONITOR, in Kurdish digits. The POSTER in the corridor can translate."
+      : !f.rebooted ? "There's a very tempting button in the server room."
+      : "The exit is east of the corridor.";
+    this.say(`<span class="c-muted">Hint:</span> ${h}`);
+  },
+
+  win() {
+    this.stop(`You push the door open and step out into the cold Bochum night.
+The air smells like rain and freedom.
+
+<span class="c-green">*** You escaped the lab in ${this.moves} moves! ***</span>${this.inv.has("gopher") ? "\nAnd you rescued the gopher. Rayan thanks you." : ""}
+
+<span class="c-muted">Fun fact: the Kurdish OCR in this game is real. Type</span> <span class="c-green">projects</span> <span class="c-muted">to see it.</span>`);
+  },
+
+  input(raw) {
+    const words = raw.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/)
+      .filter(w => w && !["the", "a", "an", "at", "on", "to", "in", "into", "with", "of", "up"].includes(w));
+    if (!words.length) return;
+    this.moves++;
+    let [v, ...rest] = words;
+    const alias = { monitor: ["screen", "computer", "pc", "ocr"], machine: ["coffee machine", "coffeemachine", "maker"], keycard: ["card", "key"],
+      mug: ["cup"], button: ["red button", "reboot", "red"], note: ["sticky note", "sticky"], whiteboard: ["board"], gopher: ["plush", "toy"],
+      rack: ["racks", "server", "servers"], exit: ["exit door"], poster: ["sign"] };
+    let t = rest.join(" ");
+    for (const [k, list] of Object.entries(alias)) if (t === k || list.includes(t) || list.some(a => t.endsWith(a)) || t.endsWith(k)) { t = k; break; }
+    if (t === "coffee" && v !== "drink" && v !== "make" && v !== "brew") t = this.room === "kitchen" ? "machine" : t;
+    if (/^\d{4}$/.test(v)) return this.enter(v);
+    switch (v) {
+      case "look": case "l": return t ? this.examine(t) : this.look();
+      case "examine": case "x": case "read": case "inspect": case "check": case "search": return this.examine(t);
+      case "go": case "walk": case "move": case "run": return this.go(rest[0]);
+      case "n": case "s": case "e": case "w": case "north": case "south": case "east": case "west": return this.go(v);
+      case "take": case "get": case "grab": case "pick": return this.take(t);
+      case "open": return this.open(t);
+      case "use": case "tap": case "swipe": return this.use(t);
+      case "make": case "brew": return this.use("machine");
+      case "enter": case "type": case "code": return this.enter(rest[0]);
+      case "push": case "press": case "hit": return this.push(t);
+      case "drink": case "sip": return this.drink();
+      case "i": case "inv": case "inventory": return this.say(this.inv.size ? "You have: " + [...this.inv].map(x => x === "mug" && this.f.coffee ? "mug (full of coffee)" : x).join(", ") : "You're carrying nothing.");
+      case "hint": return this.hint();
+      case "talk": case "hug": return this.say(t === "gopher" ? "The gopher stares back. It believes in you." : "Nobody answers.");
+      case "sleep": return this.say("No. You've slept on that keyboard long enough.");
+      case "help": return this.say(`<span class="c-accent">Commands:</span> look, look &lt;thing&gt;, go &lt;north|south|east|west&gt; (or n/s/e/w),
+take &lt;thing&gt;, open &lt;thing&gt;, use &lt;thing&gt;, read &lt;thing&gt;, push &lt;thing&gt;,
+enter &lt;code&gt;, drink, inventory (i), hint, quit`);
+      case "quit": case "exit": case "q": return this.stop();
+      case "clear": out.innerHTML = ""; return;
+      default: this.moves--; return this.say("I don't understand that. Type <span class='c-green'>help</span> or <span class='c-green'>hint</span>.");
+    }
+  },
 };
 
 function run(raw) {
-  print(`<span class="prompt"><b>guest@x-ray08</b>:~$</span> ${esc(raw)}`);
+  if (activeGame) {
+    print(`${activeGame.prompt} ${esc(raw)}`);
+    if (!raw.trim()) return;
+    history.push(raw); hIdx = history.length;
+    captured = [];
+    const tag = activeGame === adv ? "[adventure] " : "[word] ";
+    try { activeGame.input(raw); } finally { logCommand(tag + raw.trim(), captured.join("\n")); captured = null; }
+    return;
+  }
+  print(`<span class="prompt">${SHELL_PROMPT}</span> ${esc(raw)}`);
   const [cmd, ...args] = raw.trim().split(/\s+/);
   if (!cmd) return;
   history.push(raw); hIdx = history.length;
@@ -329,6 +738,7 @@ input.addEventListener("keydown", e => {
   else if (e.key === "ArrowDown") { input.value = hIdx < history.length - 1 ? history[++hIdx] : (hIdx = history.length, ""); e.preventDefault(); }
   else if (e.key === "Tab") {
     e.preventDefault();
+    if (activeGame) return;
     const m = Object.keys(commands).filter(c => c.startsWith(input.value));
     if (m.length === 1) input.value = m[0]; else if (m.length > 1) print(m.join("  "));
   }
@@ -383,7 +793,7 @@ function matrix() {
 
 /* Welcome message */
 print(`<span class="c-accent">Welcome to X-Ray08's terminal</span> <span class="c-muted">v1.0</span>`);
-print(`Type <span class="c-green">help</span> to see available commands. Try <span class="c-green">about</span>, <span class="c-green">projects</span> or <span class="c-green">contact</span>.`);
+print(`Type <span class="c-green">help</span> to see available commands. Try <span class="c-green">about</span>, <span class="c-green">projects</span>, <span class="c-green">contact</span> or <span class="c-green">play</span>.`);
 if (LOG_URL) print(`<span class="c-muted">Commands are logged anonymously to improve this site. See <a href="privacy.html" style="text-decoration:underline">privacy</a>.</span>`);
 print("");
 </script>
