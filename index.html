@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rayan · X-Ray08 · just a curious student</title>
-<meta name="description" content="Portfolio of Rayan (X-Ray08), M.Sc. Computer Science student at Hochschule Bochum. Projects, skills and an interactive terminal.">
+<title>Rayan · M.Sc. Computer Science</title>
+<meta name="description" content="Rayan (X-Ray08), M.Sc. Computer Science student at Hochschule Bochum, working on computer vision and OCR. Projects, skills and an interactive terminal.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://x-ray08.github.io/">
+<meta property="og:title" content="Rayan · M.Sc. Computer Science">
+<meta property="og:description" content="M.Sc. Computer Science student at Hochschule Bochum, working on computer vision and OCR. Built the first OCR for Kurdish.">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234f46e5'/><text x='50' y='68' font-size='52' font-family='monospace' text-anchor='middle' fill='white'>&gt;_</text></svg>">
+<script>document.documentElement.classList.add("js");</script>
 <style>
   :root {
     --bg: #fafafa;
@@ -92,31 +98,59 @@
   .hero { padding: 96px 0 40px; }
   .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.08; font-weight: 800; letter-spacing: -.03em; }
   .hero h1 .sub { color: var(--muted); }
-  .typed { color: var(--muted); font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin: 22px 0 0; min-height: 2em; }
-  .typed .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); margin-left: 2px; vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  /* Contact form */
-  .contact { max-width: 520px; margin-top: 56px; }
-  .contact h2 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
-  .contact > p { color: var(--muted); font-size: .9rem; margin-bottom: 16px; }
-  .contact .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-  .contact input, .contact textarea {
-    width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
-    background: var(--surface); color: var(--text); font: inherit; font-size: .9rem;
+  .tagline { color: var(--muted); font-size: clamp(1.05rem, 2.2vw, 1.3rem); margin-top: 22px; max-width: 620px; }
+  .tagline strong { color: var(--text); font-weight: 600; }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface); font-size: .9rem; font-weight: 500;
+    transition: border-color .2s, color .2s, transform .2s;
   }
-  .contact textarea { min-height: 96px; resize: vertical; display: block; }
-  .contact input:focus, .contact textarea:focus { outline: none; border-color: var(--accent); }
-  .contact .actions { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
-  .contact button {
-    padding: 9px 18px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent);
-    color: #fff; font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer;
-  }
-  .contact button:disabled { opacity: .6; cursor: default; }
-  .contact .status { font-size: .85rem; color: var(--muted); }
-  .hp { display: none; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { color: #fff; opacity: .92; }
+
+  /* Nav links */
+  .nav-links { display: flex; gap: 22px; font-size: .88rem; color: var(--muted); }
+  .nav-links a:hover { color: var(--accent); }
 
   /* Sections */
-  section { padding: 0 0 80px; }
+  section { padding: 0 0 88px; scroll-margin-top: 80px; }
+  .kicker { color: var(--accent); font-size: .8rem; letter-spacing: .04em; margin-bottom: 6px; }
+  section h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 20px; }
+  .lead { color: var(--muted); max-width: 680px; font-size: 1.05rem; }
+  .lead + .lead { margin-top: 14px; }
+  .lead strong { color: var(--text); font-weight: 600; }
+
+  /* Education */
+  .timeline { display: grid; gap: 12px; max-width: 680px; }
+  .edu { display: flex; justify-content: space-between; gap: 16px; padding: 18px 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  .edu h3 { font-size: 1rem; font-weight: 600; }
+  .edu p { color: var(--muted); font-size: .9rem; }
+  .edu .when { color: var(--muted); font-size: .82rem; white-space: nowrap; }
+
+  /* Projects */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .card {
+    display: flex; flex-direction: column; padding: 24px; border: 1px solid var(--border); border-radius: 14px;
+    background: var(--surface); box-shadow: var(--shadow); transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card.featured { grid-column: 1 / -1; }
+  .card .badge { align-self: flex-start; font-size: .72rem; color: var(--accent); background: var(--accent-soft); padding: 3px 9px; border-radius: 999px; margin-bottom: 12px; }
+  .card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: .95rem; flex: 1; }
+  .card .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; }
+  .card .more { font-size: .85rem; color: var(--accent); white-space: nowrap; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags span { font-size: .75rem; color: var(--muted); border: 1px solid var(--border); padding: 2px 9px; border-radius: 999px; }
+  .skills { display: grid; gap: 14px; max-width: 680px; }
+  .skills .row { display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: start; }
+  .skills .label { color: var(--muted); font-size: .85rem; padding-top: 2px; }
+  .skills .tags span { font-size: .85rem; color: var(--text); background: var(--surface); padding: 4px 12px; }
+
+  /* Contact */
+  .contact-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 
   /* Terminal */
   .terminal {
@@ -137,16 +171,21 @@
   .tile.g { background: #16a34a; } .tile.y { background: #ca8a04; } .tile.x { background: #3f3f46; }
   .key { color: #9ca3af; } .key.g { color: #22c55e; font-weight: 600; } .key.y { color: #facc15; font-weight: 600; } .key.x { color: #3f3f46; }
   .term-hint { margin-top: 14px; color: var(--muted); font-size: .88rem; }
-  .term-hint code { background: var(--accent-soft); color: var(--accent); padding: 2px 7px; border-radius: 6px; font-size: .82rem; }
+  .lead code, .term-hint code { background: var(--accent-soft); color: var(--accent); padding: 2px 7px; border-radius: 6px; font-size: .82rem; }
 
   footer a { text-decoration: underline; }
   footer { padding: 40px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem; text-align: center; }
 
   /* Reveal animation */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .js .reveal.visible { opacity: 1; transform: none; }
 
   @media (max-width: 760px) {
+    .nav-links { display: none; }
+    .projects { grid-template-columns: 1fr; }
+    .edu { flex-direction: column; gap: 4px; }
+    .skills .row { grid-template-columns: 1fr; gap: 6px; }
+    .card .foot { flex-direction: column; align-items: flex-start; }
     .hero { padding: 64px 0 32px; }
     .nav-right { gap: 6px; }
     .nav-btn { padding: 5px 8px; font-size: .78rem; }
@@ -156,7 +195,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .cord.swing, .flicker { animation: none; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
     html { scroll-behavior: auto; }
   }
 </style>
@@ -167,8 +206,12 @@
   <div class="container">
     <a href="#" class="logo mono">&gt;_ X-Ray<span>08</span></a>
     <div class="nav-right">
-      <a class="nav-btn mono" href="https://github.com/X-Ray08" target="_blank" rel="noopener">github <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a>
-      <a class="nav-btn mono" href="https://www.linkedin.com/in/rayanchicho" target="_blank" rel="noopener">linkedin <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a>
+      <div class="nav-links mono">
+        <a href="#about">about</a>
+        <a href="#projects">projects</a>
+        <a href="#terminal">terminal</a>
+        <a href="#contact">contact</a>
+      </div>
     </div>
     <button class="cord" id="cord" aria-label="Pull to switch the lights" title="pull me"><span class="cord-line"></span><span class="cord-knob"></span></button>
   </div>
@@ -176,13 +219,105 @@
 
 <header class="hero">
   <div class="container">
-    <h1 class="reveal">Hi, I'm Rayan.<br><span class="sub">Just a curious student.</span></h1>
-    <p class="typed mono reveal"><span id="typed"></span><span class="cursor"></span></p>
+    <h1 class="reveal">Hi, I'm Rayan.<br><span class="sub">I build things that read the world.</span></h1>
+    <p class="tagline reveal"><strong>M.Sc. Computer Science</strong> student at Hochschule Bochum, working on computer vision and OCR. I built the first OCR system for Kurdish.</p>
+    <div class="hero-links reveal">
+      <a class="btn primary" href="#projects">See my projects</a>
+      <a class="btn" href="https://github.com/X-Ray08" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/rayanchicho" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
   </div>
 </header>
 
+<section id="about">
+  <div class="container reveal">
+    <p class="kicker mono">01 / about</p>
+    <h2>About me</h2>
+    <p class="lead">I'm a master's student in Computer Science at Hochschule Bochum, Germany. I build software, automating workflows and solving problems that matter to people.</p>
+    <p class="lead">When I noticed that existing OCR tools didn't support my own language, I built one: the <strong>first OCR system for Kurdish</strong> (Badini and Sorani). I enjoy taking ideas and turning it into tools that work in the real world.</p>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container reveal">
+    <p class="kicker mono">02 / education</p>
+    <h2>Education</h2>
+    <div class="timeline">
+      <div class="edu">
+        <div>
+          <h3>M.Sc. Computer Science (Informatik)</h3>
+          <p>Hochschule Bochum, Germany</p>
+        </div>
+        <span class="when mono">current</span>
+      </div>
+      <div class="edu">
+        <div>
+          <h3>B.Sc. Computer Science</h3>
+          <p>Nawroz University</p>
+        </div>
+        <span class="when mono">completed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <p class="kicker mono">03 / projects</p>
+      <h2>Projects</h2>
+    </div>
+    <div class="projects">
+      <a class="card featured reveal" href="https://github.com/X-Ray08/Kurdish-OCR" target="_blank" rel="noopener">
+        <span class="badge mono">featured</span>
+        <h3>Kurdish-OCR</h3>
+        <p>The first OCR system for Kurdish (Badini and Sorani). It straightens photographed documents with a four-point perspective transform, cleans them up with OpenCV, and reads the text with Tesseract, so Kurdish books and documents can finally be searched and edited.</p>
+        <div class="foot">
+          <div class="tags mono"><span>Python</span><span>OpenCV</span><span>Tesseract</span><span>Computer Vision</span></div>
+          <span class="more mono">view on GitHub →</span>
+        </div>
+      </a>
+      <a class="card reveal" href="https://github.com/X-Ray08/Go-GroceryList" target="_blank" rel="noopener">
+        <h3>Go-GroceryList</h3>
+        <p>A grocery list web app written in Go, organised with the standard cmd / internal / web project layout.</p>
+        <div class="foot">
+          <div class="tags mono"><span>Go</span><span>Web</span></div>
+          <span class="more mono">view on GitHub →</span>
+        </div>
+      </a>
+      <a class="card reveal" href="https://github.com/X-Ray08" target="_blank" rel="noopener">
+        <h3>More on GitHub</h3>
+        <p>Smaller experiments, automation scripts and things I'm currently working on.</p>
+        <div class="foot">
+          <div class="tags mono"><span>Python</span><span>Go</span><span>Linux</span></div>
+          <span class="more mono">github.com/X-Ray08 →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container reveal">
+    <p class="kicker mono">04 / skills</p>
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="row"><span class="label mono">languages</span><div class="tags mono"><span>Python</span><span>Go</span><span>JavaScript</span><span>SQL</span></div></div>
+      <div class="row"><span class="label mono">cv / ml</span><div class="tags mono"><span>OpenCV</span><span>Tesseract</span><span>NumPy</span></div></div>
+      <div class="row"><span class="label mono">web</span><div class="tags mono"><span>REST APIs</span><span>HTML / CSS</span><span>Go web servers</span></div></div>
+      <div class="row"><span class="label mono">tools</span><div class="tags mono"><span>Git</span><span>Linux</span><span>Automation</span></div></div>
+      <div class="row"><span class="label mono">speaks</span><div class="tags mono"><span>Kurdish</span><span>English</span><span>German</span></div></div>
+    </div>
+  </div>
+</section>
+
 <section id="terminal">
   <div class="container">
+    <div class="reveal">
+      <p class="kicker mono">05 / terminal</p>
+      <h2>Prefer a shell?</h2>
+      <p class="lead" style="margin-bottom:24px">Explore the same things from the command line. Type <code class="mono">help</code> to start, or <code class="mono">play</code> for a little word game.</p>
+    </div>
     <div class="terminal reveal">
       <div class="term-bar">
         <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
@@ -197,20 +332,19 @@
       </div>
     </div>
 
-    <form class="contact reveal" id="contactForm">
-      <h2>Contact</h2>
-      <p>Send me a message and I'll get back to you.</p>
-      <div class="row">
-        <input name="name" placeholder="Name" required aria-label="Name">
-        <input name="email" type="email" placeholder="Email" required aria-label="Email">
-      </div>
-      <textarea name="message" placeholder="Message" required aria-label="Message"></textarea>
-      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
-      <div class="actions">
-        <button type="submit">Send</button>
-        <span class="status" id="formStatus" role="status"></span>
-      </div>
-    </form>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container reveal">
+    <p class="kicker mono">06 / contact</p>
+    <h2>Let's talk</h2>
+    <p class="lead">Have an idea, a question or a project in mind? I'm happy to hear from you.</p>
+    <div class="contact-links">
+      <a class="btn primary" href="mailto:ray.pybot@gmail.com">ray.pybot@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/rayanchicho" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/X-Ray08" target="_blank" rel="noopener">GitHub</a>
+    </div>
   </div>
 </section>
 
@@ -276,20 +410,6 @@ document.body.addEventListener("animationend", e => { if (e.target === document.
 setTimeout(swingCord, 1500); // a little swing on load, so people notice it
 
 document.getElementById("year").textContent = new Date().getFullYear();
-
-/* Typing effect */
-const phrases = ["M.Sc. Computer Science @ Hochschule Bochum", "Computer vision and OCR", "Built the first Kurdish OCR", "Go · Python · Linux"];
-const typedEl = document.getElementById("typed");
-let pi = 0, ci = 0, deleting = false;
-(function type() {
-  const p = phrases[pi];
-  typedEl.textContent = p.slice(0, ci);
-  if (!deleting && ci < p.length) ci++;
-  else if (deleting && ci > 0) ci--;
-  else if (!deleting) { deleting = true; return setTimeout(type, 1800); }
-  else { deleting = false; pi = (pi + 1) % phrases.length; }
-  setTimeout(type, deleting ? 35 : 65);
-})();
 
 /* Scroll reveal */
 const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); } }), { threshold: .12 });
@@ -745,29 +865,6 @@ input.addEventListener("keydown", e => {
   else if (e.key === "l" && e.ctrlKey) { e.preventDefault(); commands.clear(); }
 });
 body.addEventListener("click", () => { if (!window.getSelection().toString()) input.focus({ preventScroll: true }); });
-
-/* Contact form (sent via formsubmit.co, falls back to the mail app) */
-const form = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
-form.addEventListener("submit", async e => {
-  e.preventDefault();
-  const data = Object.fromEntries(new FormData(form));
-  if (data._honey) return;
-  const btn = form.querySelector("button");
-  btn.disabled = true; formStatus.textContent = "Sending...";
-  try {
-    const r = await fetch(`https://formsubmit.co/ajax/${ME.email}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ name: data.name, email: data.email, message: data.message, _subject: "New message from X-Ray08.github.io", _template: "table" }),
-    });
-    if (!r.ok) throw new Error();
-    form.reset(); formStatus.textContent = "Thanks, your message was sent.";
-  } catch {
-    formStatus.textContent = "Couldn't send. Opening your mail app instead.";
-    location.href = `mailto:${ME.email}?subject=${encodeURIComponent("Message from " + data.name)}&body=${encodeURIComponent(data.message + "\n\n" + data.name + " <" + data.email + ">")}`;
-  } finally { btn.disabled = false; }
-});
 
 /* Matrix easter egg */
 function matrix() {
